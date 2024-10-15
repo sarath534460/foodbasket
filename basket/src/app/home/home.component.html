@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div style="display:flex;flex-direction: column;">
+
+          <div style="display:flex;flex-direction: row;background-color:#090;height:60px;top:0;align-items: center;gap:200px">
+
+            <div>
+              <p style="color:white ;margin-left: 20px;margin-top:15px;font-size: 20px;">foodbasket</p>
+            </div>
+
+           
+            <div>
+              <input type="text"style="height:40px;width:600px;border-radius:5px;border:none;outline:none;">
+            </div>
+
+           <div style="display:flex;align-items: center;gap:50px">
+            <div>
+            <p style="color:white;margin-top: 20px;">Eluru</p>
+            </div>
+              
+            
+            <div *ngIf="!validatetoken" class="dropdown">
+              <button class="btn btn-default dropdown-toggle  dpn" type="button" id="menu1" data-toggle="dropdown" style="color:green;background-color: #f0f9f0;">Login
+              </button>
+              <ul class="dropdown-menu lk" role="menu" aria-labelledby="menu1">
+                <li class="ml-2" role="presentation"><button (click)="togglePopup()" style="background-color:none;border:none">login by Mobile</button></li><br>
+                <li class="ml-2" role="presentation"><button style="background-color:none;border:none">Gmail</button></li>
+
+              </ul>
+            </div>
+
+  
+            <div *ngIf="validatetoken" class="dropdown">
+              <button class="btn btn-default dropdown-toggle  dpn" type="button" id="menu1" data-toggle="dropdown" style="color:green;background-color: #f0f9f0;">Logout
+              </button>
+              <ul class="dropdown-menu lk" role="menu" aria-labelledby="menu1">
+                <li class="ml-2" role="presentation"><button  style="background-color:none;border:none">profile details</button></li><br>
+
+                <li class="ml-2" role="presentation"><button (click)="logout()" style="background-color:none;border:none">logout</button></li><br>
+
+              </ul>
+            </div>
+            
+            <button type="button" (click)="gotocart()" style="background-color: #090;border: none;"><div class="style_cart_icon__noiw7" aria-label="cart_button"><img src="https://img.crofarm.com/otipyecom/assets/svg/Cart.svg" alt="Cart svg" width="auto" height="auto"><span class="mb-4" style="color:red;font-weight: 800;" class="style_badge__59RWm">{{cartlength}}</span> </div>
+            </button>
+           </div>
+          </div>
+
+          <div style="display:flex;flex-direction: row;background-color:#f0f9f0;justify-content:start;gap:120px;height:65px;align-items: center;">
+            
+             <div *ngFor="let d of allcategorieslist" >
+                   <button class="ml-4" type="button" (click)="getcategoryproducts(d.categoryname)" style="background-color:#f0f9f0;border:none">{{d.categoryname}}</button> 
+             </div>
+
+          </div>
+
+
+        </div>
+    </div>
+
+    <div class="popup-overlay" *ngIf="isPopupOpen" (click)="closePopup()">
+      <div  class="popup-content" (click)="$event.stopPropagation()">
+        <div  class="mt-3 ml-5">
+          <div style="display:flex;flex-direction: row;align-items: center;gap:200px">
+            <p style="font-size:14px;font-weight: 700;margin-top: 20px; ">Phone number verification</p>
+            <button (click)="closePopup()" style="border-radius: 40px;border:none;font-size: 24px;text-align: center;" type="button"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"></path></svg></button>
+          </div>
+          <p *ngIf="phno" style="font-size: 14px;">Enter your phone number to Login/Sign up</p>
+
+          <form #ref="ngForm" (ngSubmit)="next(ref.value)" *ngIf="phno" style ="margin-left: 50px;margin-top: 30px;">
+            <input type="text"  name="mobileno" ngModel class="form-control" placeholder="10 digit Mobile Number" pattern="^([6-9]{1})([0-9]{9})$" required minlength="6" style="width:300px"><br>
+            <div *ngIf="ref.controls['mobileno']?.['errors'] &&ref.controls['mobileno']?.['touched']">
+              <small  style="color:red" *ngIf="ref.controls['mobileno']?.['errors']?.['required']">Mobile no is required.</small>
+              <small  style="color:red" *ngIf="ref.controls['mobileno']?.['errors']?.['pattern']">Enter valid 10 digit no</small>
+              <!-- &&  ref.controls['city']?.['touched']  -->
+           </div>
+            <button type="submit"  [disabled]="ref.invalid"   style="background-color: #090;width:300px;color:white;border:none;padding:5px;border-radius: 5px;font-weight: 700;margin-bottom: 30px;">Next</button>
+          </form>
+
+
+
+          <!-- OTP input -->
+        <div *ngIf="phnootp">
+          <p style="font-size: 14px;">Enter the OTP sent to your phone</p>
+          <input type="text" #ref class="form-control" style="width:300px" placeholder="Enter OTP"><br>
+          <button type="button" (click)="verifyotp(ref.value)" style="background-color: #090;width:300px;color:white;border:none;padding:5px;border-radius: 5px;font-weight: 700;">Verify OTP</button>
+          <p style="color:red" *ngIf="flag">{{flag}}</p>
+
+          <p class="ml-5 mt-2" *ngIf="timer">your otp code time:{{timer}}</p>
+         
+          <div class="mt-2 ml-5" *ngIf="timer==undefined">
+             <button type="button" (click)="resend()" style="background-color:#090;border:none;color:#f0f9f0;margin-bottom: 20px;">resend</button>
+          </div>
+
+
+          
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+</body>
+</html>
+
+ <router-outlet />

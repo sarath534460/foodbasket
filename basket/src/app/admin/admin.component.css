@@ -1,0 +1,13 @@
+.cat{
+
+    background-color: skyblue;
+    border:none
+}
+
+.active-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+  }
+  body{
+    font-family: Montserrat;
+  }

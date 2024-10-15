@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+ <body>
+    <div class="container-fluid">
+        <div style="display:flex;flex-direction: row;">
+            <div *ngIf="showaddress" style="margin-left:80px;margin-top:30px">
+                <h3>Shipping Address</h3>
+                <hr >
+                <form  #ref="ngForm" (ngSubmit)="deliveryaddress(ref)"  style="width:600px;background-color: #f0f9f0;padding-top:30px;padding:30px;border-radius: 10px;">
+                  <input type="text" placeholder="Full Name" ngModel name="fname" required minlength="6" class="form-control mt-3">
+                  <div *ngIf="ref.controls['fname']?.['errors'] && validater">
+                      <small  style="color:red" *ngIf="ref.controls['fname']?.['errors']?.['required']">Name is required.</small>
+                      <small  style="color:red" *ngIf="ref.controls['fname']?.['errors']?.['minlength']">minimum 6 characters is required.</small>
+        
+                   </div>
+                  <input type="text" placeholder="Enter Your Street Address" ngModel  name="street" required minlength="6" class="form-control mt-3">
+        
+                  <div *ngIf="ref.controls['street']?.['errors']  && validater">
+                      <small  style="color:red" *ngIf="ref.controls['street']?.['errors']?.['required']">street name is required.</small>
+        
+                   </div>
+        
+                  <input type="text" placeholder="Door number,FloorNumber and Building" ngModel name="dno" pattern="^[0-9]{4}$" required class="form-control mt-3">
+                  <div *ngIf="ref.controls['dno']?.['errors']  && validater">
+                      <small  style="color:red" *ngIf="ref.controls['dno']?.['errors']?.['required']">dno is required.</small>
+                      <small  style="color:red" *ngIf="ref.controls['dno']?.['errors']?.['pattern']">minimum 4 digits is required.</small>
+        
+                   </div>
+                  <input type="text" placeholder="10 digit Mobile Number" pattern="^([6-9]{1})([0-9]{9})$" required minlength="6" ngModel name="mobileno"class="form-control mt-3">
+                  <div *ngIf="ref.controls['mobileno']?.['errors']  && validater">
+                      <small  style="color:red" *ngIf="ref.controls['mobileno']?.['errors']?.['required']">Mobile no is required.</small>
+                      <small  style="color:red" *ngIf="ref.controls['mobileno']?.['errors']?.['pattern']">Enter valid 10 digit no</small>
+                      <!-- &&  ref.controls['city']?.['touched']  -->
+                   </div>
+                  <input type="text" placeholder="City" ngModel name="city" required class="form-control mt-3">
+                  <div *ngIf="ref.controls['city']?.['errors']  && validater">
+                      <small  style="color:red" *ngIf="ref.controls['city']?.['errors']?.['required']">city is required.</small>
+                      <small  style="color:red" *ngIf="ref.controls['city']?.['errors']?.['minlength']">minimum 6 characters is required.</small>
+        
+                   </div>
+                  <input type="text" placeholder="State" ngModel name="state"  required class="form-control mt-3">
+                  <div *ngIf="ref.controls['state']?.['errors']  && validater">
+                      <small  style="color:red" *ngIf="ref.controls['state']?.['errors']?.['required']">state is required.</small>
+                      <small  style="color:red" *ngIf="ref.controls['state']?.['errors']?.['minlength']">minimum 6 characters is required.</small>
+        
+                   </div>
+                  <input type="text" placeholder="Pin Code" ngModel name="pin" pattern="^[0-9]{6}$" required   class="form-control mt-3">
+                  <div *ngIf="ref.controls['pin']?.['errors']  && validater ">
+                      <small  style="color:red" *ngIf="ref.controls['pin']?.['errors']?.['required']">pin is required.</small>
+                      <small  style="color:red" *ngIf="ref.controls['pin']?.['errors']?.['pattern']">minimum 6 digits is required.</small>
+        
+                   </div>
+                  <button type="submit"  style="margin-top:40px;background-color: lightgreen;border-radius:20px;color:white;height:40px;width:200px;border:none;margin-left:30px">
+                      SAVE AND CONTINUE 
+                  </button>
+                </form>
+            </div>
+
+
+            <div *ngIf="allpayments" style="margin-left:80px;margin-top:40px;width:700px;background-color:whitesmoke;padding-top:30px;padding:30px;border-radius: 10px;height:500px">
+               <h3 style="color:black">Payment Method</h3>
+               <hr>
+                <br>
+                <br>
+
+               <div style="height:300px;width:200px;background-color: white;border-radius: 10px;">
+                   <div style="display:flex;gap:100px">
+                    <div style="display:flex;flex-direction: column;gap:30px;">
+                        <br>
+                        <button type="button" (click)="payme('cash')" style="width:150px; margin-left:20px;border:none;padding:5px">Cash on Delivery</button>
+                        <button  type="button" (click)="payme('phonepe')" style="width:150px; margin-left:20px;border:none;padding:5px"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 48 48">
+                            <path fill="#4527a0" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5	V37z"></path><path fill="#fff" d="M32.267,20.171c0-0.681-0.584-1.264-1.264-1.264h-2.334l-5.35-6.25	c-0.486-0.584-1.264-0.778-2.043-0.584l-1.848,0.584c-0.292,0.097-0.389,0.486-0.195,0.681l5.836,5.666h-8.851	c-0.292,0-0.486,0.195-0.486,0.486v0.973c0,0.681,0.584,1.506,1.264,1.506h1.972v4.305c0,3.502,1.611,5.544,4.723,5.544	c0.973,0,1.378-0.097,2.35-0.486v3.112c0,0.875,0.681,1.556,1.556,1.556h0.786c0.292,0,0.584-0.292,0.584-0.584V21.969h2.812	c0.292,0,0.486-0.195,0.486-0.486V20.171z M26.043,28.413c-0.584,0.292-1.362,0.389-1.945,0.389c-1.556,0-2.097-0.778-2.097-2.529	v-4.305h4.043V28.413z"></path>
+                            </svg>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phonepe</button>
+                        <button type="button" (click)="payme('gpay')" style="width:150px; margin-left:20px;border:none;padding:5px"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 48 48">
+                            <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
+                            </svg>&nbsp;&nbsp;&nbsp;&nbsp;Google pay</button>
+                         
+                    </div>
+
+                    <div>
+                        <div *ngIf="paymentype=='cash'"  style="height:400px;width:500px">
+                            <p class="mt-2"><svg xmlns="http://www.w3.org/2000/svg" width="44" height="24" viewBox="0 0 44 24">
+                                <g fill="none" fill-rule="evenodd">
+                                    <rect width="44" height="24" fill="#F0DBF0" rx="2"></rect>
+                                    <path fill="#CDA7CD" d="M6.917 22A6.005 6.005 0 0 0 2 17.083V6.917A6.005 6.005 0 0 0 6.917 2h30.166A6.005 6.005 0 0 0 42 6.917v10.166A6.005 6.005 0 0 0 37.083 22H6.917z"></path>
+                                    <circle cx="23" cy="12" r="4" fill="#F0DBF0"></circle>
+                                    <circle cx="14" cy="12" r="1" fill="#F0DBF0"></circle>
+                                    <circle cx="32" cy="12" r="1" fill="#F0DBF0"></circle>
+                                </g>
+                            </svg></p>
+                            <h5>Cash</h5>
+                            <p>Pay with cash on deliver</p>
+
+                            <button type="button" (click)="placeordercash()" style="background-color: lightgreen;border:none;padding-top:10px;padding-bottom:10px;color:white;padding-right: 30px;text-align: center;padding-left: 30px;">Place Order</button>
+
+                        </div>
+                      
+                       
+                        <div *ngIf="paymentype=='phonepe'"  style="height:400px;width:500px;margin-top:30px">
+                             <p style="font-size:14px ;">Enter the phone number linked with your Phonepe <br>
+                                 Account to proceed and pay</p>
+                             <input type ="text" class="form-control" style="width:350px"><br>
+                             <p style="font-size:14px ;">You will receive a payment request From Fruit Basket  <br>in the phonepe app</p>
+
+                             <button type ="button" style="background-color: lightgreen;color:white;border:none;padding:10px">VERIFY AND PAY</button>
+
+                        </div>
+
+                    </div>
+
+
+
+                   </div>
+
+                
+               </div>
+
+            </div>
+
+            <div style="margin-top:50px;margin-left: 200px;width:400px;border:1px solid gray;margin-bottom: 100px;">
+                <div style="padding:50px">
+                    <div>
+                        <h3>Order Summary</h3>
+                        <hr>
+                         <p>ITEMS IN CART</p>
+                    </div>
+                    <div *ngFor="let y of carts">
+                        <div style="display:flex;">
+                            <img src='data:{{a}};base64,{{y.productimage}}' height="70" width="70" alt="{{y.productname}}">
+                    <div>
+                    <p>{{y.productname}}</p>
+                    
+                  <span><p><i class="fa fa-sharp fa-light fa-indian-rupee-sign"></i>{{y.price}}</p></span><span><p>{{y.price}}*{{y.quantity}}  =<i class=" ml-3 fa fa-sharp fa-light fa-indian-rupee-sign"></i>{{y.itemtotal}}</p></span>
+                    </div>
+                        </div>
+                            
+                    </div>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+      
+ </body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="container">
+            <div style="display:flex; gap: 10px; margin-top:20px">
+              <button class="cat" type="button" (click)="showForm('category')">Add Category</button>
+              <button  class="cat" type="button" (click)="showForm('subcategory')">Add SubCategory</button>
+              <button  class="cat" type="button" (click)="showForm('product')">Add Product</button>
+            </div>
+          
+            <!-- Category Form -->
+            <div style="margin-top: 50px;" *ngIf="visibleForm === 'category'">
+              <form #userForm="ngForm" (ngSubmit)="addcategory(userForm.value)">
+                <label for="category-name"> Parent Category Name:</label>
+                <input type="text" style="width: 300px;" class="form-control" id="category-name" name="categoryname" ngModel required><br><br>
+                <button style="background-color: red;border:none;color:white;margin-top:20px;height:40px;border-radius: 10px;" type="submit">Submit Parent Category</button>
+              </form>
+            </div>
+          
+            <!-- Subcategory Form -->
+            <div style="margin-top: 50px;" *ngIf="visibleForm === 'subcategory'">
+
+              <form #userForm="ngForm" (ngSubmit)="addsubcategory(userForm.value)">
+
+                <label for="parent-category">Select Parent Category:</label>
+
+                <select id="parent-category" style="width: 300px;" class="form-control" name="parentcategory" ngModel required>
+                  <option value="" disabled>Select a category</option>
+                  <option *ngFor="let category of allparentcategorieslist" [value]="category.categoryname">{{ category.categoryname }}</option>
+                </select>
+
+                <br><br>
+
+                <label for="subcategory-name">Subcategory Name:</label>
+                <input type="text" style="width: 300px;" id="subcategory-name" class="form-control" name="subcategory" ngModel required><br>
+                <button type="submit"  style="background-color: red;border:none;color:white;margin-top:20px;height:40px;border-radius: 10px;">Submit Subcategory</button>
+                
+              </form>
+
+            </div>
+          
+            <!-- Product Form -->
+            <div style="margin-top:50px" *ngIf="visibleForm === 'product'">
+              <form #userForm="ngForm" (ngSubmit)="addproducts(userForm.value)">
+
+                <select id="parent-category" #ref style="width: 300px;" (change)="test(ref.value)" class="form-control" name="parentcategory" ngModel required>
+                  <option value="" disabled>Select a parent category</option>
+                  <option *ngFor="let category of allparentcategorieslist"  [value]="category.categoryname">{{ category.categoryname }}</option>
+                </select><br>
+
+                <select id="parent-category" style="width: 300px;" [disabled]="isDisabled" class="form-control" name="subcategory" ngModel required>
+                  <option value="" disabled>Select a sub category</option>
+                  <option *ngFor="let category of p" [value]="category.categoryname">{{ category.categoryname }}</option>
+                </select><br>
+
+                <label for="product-name">Product Name:</label>
+                <input type="text" id="product-name" class=" form-control" ngModel style="width:300px" name="name" required><br>
+                
+                <label for="product-name">Product image:</label>
+                <input type="file" name="hjk" (change)="productimage($event)"><br>
+
+                <label for="product-name">Price:</label>
+                <input type="text" class=" form-control" ngModel style="width:300px"name="price" required><br>
+                
+                <label for="p">Stock</label>
+                <input type="text"  class=" form-control" ngModel style="width:300px"name="stock" required><br>
+                
+                <label for="pro">Description:</label>
+                <input type="text" class=" form-control" ngModel style="width:300px"name="desc" required><br><br>
+
+                <button type="submit"  style="background-color: red;border:none;color:white;height:40px;border-radius: 10px;">Submit Product</button>
+              </form>
+            </div>
+          </div>
+          
+    </div>
+</body>
+</html>

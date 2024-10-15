@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid">
+           <div style="display:flex;flex-direction: row;justify-content:start;gap:50px;height:30px;align-items: center;margin-top: 15px;">
+            
+            <div *ngFor="let d of subcat" >
+
+                  <button class="ml-3" type="button" (click)="getsubcatpoducts(d._id,d)" style="background-color:white;border-radius: 20px;text-align: center;width:120px;height:40px" >{{d.categoryname}}</button> 
+            </div>
+
+          </div>
+
+          <div class="cards-container mt-5" style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <div *ngFor="let p of allprod;; trackBy: trackById">
+              <div class="card">
+                <div class="card-image">
+                  <img (click)="gotoproductviewpage(p)" style="cursor:pointer;" src='data:{{a}};base64,{{p.productimage}}'><br>
+                </div>
+                <div class="card-content">
+                  <p>{{ p.productname }}</p>
+                  <div>
+                    <span><i class="fa fa-sharp fa-light fa-indian-rupee-sign"></i>{{ p.price }}</span>
+                    <span *ngIf="p.quantity==0" class="ml-4"><button (click)="addtocart(p)" class="card-button">ADD</button></span> 
+                    <span style="font-size: 24px;" *ngIf="p.quantity>0" class="ml-4"><button class="card-button"><span><button type="button" (click)="inccart(p)" style="background-color: lightgreen;border:none;color:white;font-size: 24px;">+</button></span>{{p.quantity}}<span><button type="button" (click)="desccart(p)" style="background-color: lightgreen;border:none;color:white;font-size: 24px;">-</button></span></button></span>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        
+    </div>
+    
+</body>
+</html>

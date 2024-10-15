@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       
+        .cart-container {
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            border: 1px solid gray;
+            border-radius: 10px;
+            width: 800px;
+            margin-top: 30px;
+            padding: 30px;
+            margin-bottom: 200px;
+        }
+
+        .cart-item {
+            display: flex;
+           
+            justify-content: space-between; 
+            align-items: center; /* Center align items vertically */
+            margin-bottom: 20px; /* Space between cart items */
+        }
+
+        .product-info {
+            margin-top: 5px;
+            display: flex; /* Flexbox for image and name */
+            align-items: center; /* Center align image and text */
+            gap: 15px; /* Space between image and text */
+        }
+
+        img {
+            height: 80px; /* Fixed height for the image */
+            width: 80px; /* Fixed width for the image */
+            border-radius: 5px; /* Optional: Add border radius for aesthetics */
+        }
+
+        .cart-control {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Space between buttons and quantity */
+        }
+
+        .quantity {
+            margin: 0 15px;
+          font-size: 18px;
+           font-weight: bold;
+        }
+
+        .dec-btn, .inc-btn {
+            background-color: #00ff4c8f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        h3 {
+            margin: 0; /* Remove default margin from h3 */
+        }
+        hr {
+            border: 1px solid gray; /* Style the horizontal line */
+            margin: 10px 0; /* Space above and below the line */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+     <div style="display:flex;flex-direction: row;">
+        <div class="cart-container">
+            <h3>My Cart</h3>
+            <hr>
+          
+            <div *ngFor="let y of carts" class="cart-item">
+                <div class="product-info">
+                    <img src='data:{{a}};base64,{{y.productimage}}' alt="{{y.productname}}">
+                    <div>
+                    <p>{{y.productname}}</p>
+                   
+                    <p><i class="fa fa-sharp fa-light fa-indian-rupee-sign"></i>{{y.price}}</p>
+                    <p>{{y.price}}*{{y.quantity}}  =<i class=" ml-3 fa fa-sharp fa-light fa-indian-rupee-sign"></i>{{y.itemtotal}}</p>
+                    </div>
+                </div>
+
+                <div class="cart-control">
+                    <!-- Decrement Button -->
+                    <button (click)="desccart(y)" class="dec-btn">-</button>
+                    <!-- Quantity Display -->
+                    <span class="quantity">{{ y.quantity }}</span>
+                    <!-- Increment Button -->
+                    <button (click)="inccart(y)" class="inc-btn">+</button>
+                    
+                </div>
+
+               
+            </div>
+        </div>
+
+
+
+        <div style="margin-top:30px;margin-left: 50px;border:1px solid gray;border-radius: 10px;height:300px;width:350px;padding:10px">
+            <div><h4>Bill Detail</h4>
+                <hr style="color:lightgray">
+            </div>
+            <div>
+                <p>Item Total::<i class="fa fa-sharp fa-light fa-indian-rupee-sign"></i>{{carttotal}} </p>
+                <p>Total Items ::{{carts.length}}</p>
+                <p>Delivery ::Free</p>
+                <hr>
+                <h5 style="font-weight:800;">Total Amount      ::<i class="fa fa-sharp fa-light fa-indian-rupee-sign"></i>{{carttotal}} </h5>
+            </div><br>
+            <div>
+                <button [disabled]="carttotal==0" (click)="checkout()" type="button" style="background-color:lightgreen;color:white;border:none;padding:10px;width:300px;border-radius: 5px;font-weight: 800;">CHECK OUT</button>
+            </div>
+        </div><br>
+       
+     </div>
+    </div>
+</body>
+</html>

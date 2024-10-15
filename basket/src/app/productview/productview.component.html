@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: Montserrat;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+      <div style="display:flex;flex-direction: row;gap:100px;align-items: start;">
+        <img  style="cursor:pointer;border:1px solid grey;border-radius: 15px;" src='data:{{a}};base64,{{product.productimage}}'><br>
+         <div>
+             <h4 style="font-size: 18px;font-weight: 600;">{{product.productname}}</h4><br>
+             <h4 style="font-size: 18px;font-weight: 600;">Price  :  <i class="fa fa-sharp fa-light fa-indian-rupee-sign"></i>{{product.price}}</h4><br><br><br>
+             <button *ngIf="product.quantity==0" type="button" (click)="addtocart(product)" style="background-color:lightgreen;;color:white;border:none;width:250px;padding-top: 20px;padding-bottom: 20px;font-weight: 600;">Add To Cart</button>
+             <!-- <span style="font-size: 24px;" *ngIf="product.quantity>0" class="ml-4"><button class="card-button"><span><button type="button" (click)="inccart(product)" style="background-color: lightgreen;border:none;color:white;font-size: 24px;">+</button></span>{{product.quantity}}<span><button type="button" (click)="desccart(product)" style="background-color: lightgreen;border:none;color:white;font-size: 24px;">-</button></span></button></span> -->
+              <div >
+                <div style="display:flex;flex-direction: row;align-items: center;">
+                  <button *ngIf="product.quantity>0" type="button" (click)="desccart(product)" style="width:100px;font-weight: 600;font-size: 24px;border:4px solid lightgreen;;background-color: lightgreen;;color: white;">-</button>
+                  <p *ngIf="product.quantity>0" class="mt-3" style="width:50px;font-weight: 600;font-size: 24px;text-align: center;border:5px solid lightgreen; ;border-bottom:outline;">{{product.quantity}}</p>
+                  <button *ngIf="product.quantity>0" type="button" (click)="inccart(product)" style="width:100px;font-weight: 600;font-size: 24px;border:4px solid lightgreen;;color:white;background-color: lightgreen;">+</button>
+                 </div>
+              </div>
+            
+
+         </div>
+
+      </div>
+
+      <div class="mt-5">
+        <p>Description:<br>{{product.description}}</p>
+      </div>
+      
+        
+    </div>
+</body>
+</html>

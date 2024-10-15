@@ -1,0 +1,19 @@
+.cart-control {
+    display: flex;
+    align-items: center;
+    
+   
+  }
+  
+ 
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  body{
+    font-family: Montserrat;
+  }
+  
+  
+  

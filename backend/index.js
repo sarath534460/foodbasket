@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 async function mongo(){
   let dbs= await client.connect()
  console.log("Connected to MongoDB");
-
+//hello workd
  database=client.db("fruitbasket")
  catecollec =database.collection('category')
  prodcollec=database.collection('products')

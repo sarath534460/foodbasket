@@ -61,8 +61,10 @@ export class AllhomeproductsComponent implements  OnInit {
 
   addtocart(y:any){
     console.log(y)
+    
     let d=this.cartservice.addtocart(y).subscribe(k=>{
       this.loaditems()
+      this.cartservice.callcartlength()
       this.cd.detectChanges(); // Manually trigger change detection to update UI
 
     })
@@ -81,6 +83,7 @@ export class AllhomeproductsComponent implements  OnInit {
   desccart(k:any){
     console.log(k)
    this.cartservice.desccart(k).subscribe((u:any)=>{
+    this.cartservice.callcartlength()
 
     this.loaditems()
    

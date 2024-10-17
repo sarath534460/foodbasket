@@ -90,7 +90,7 @@ export class ProductlistComponent implements OnInit  {
     console.log(y)
     let d=this.cartservice.addtocart(y).subscribe((k:any)=>{
       this.loaditems()
-    
+      this.cartservice.callcartlength()
       this.cd.detectChanges(); // Manually trigger change detection to update UI
 
     })
@@ -111,9 +111,10 @@ export class ProductlistComponent implements OnInit  {
   desccart(k:any){
     
    this.cartservice.desccart(k).subscribe((u:any)=>{
-
+    
     this.loaditems()
-   
+    this.cartservice.callcartlength()
+
     this.cd.detectChanges();
    })
   }

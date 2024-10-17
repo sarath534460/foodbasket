@@ -5,7 +5,7 @@ var uri="mongodb+srv://sarath:mongodb@sarath.pwemxqm.mongodb.net/?retryWrites=tr
 let nodemon=require("nodemon")
 let app=express()
 let verifyToken=require('./jwtverifymiddleware')
-
+let mongoose=require("mongoose")
 let cors=require("cors")
 require('dotenv').config();
 app.use(cors('*'))
@@ -20,6 +20,8 @@ let expirationTime
 let catecollec
 let prodcollec
 let cartcollec
+let usercollec
+let orders
 
 const client = new MongoClient(uri);
 app.use(bodyParser.json());
@@ -34,32 +36,13 @@ async function mongo(){
  prodcollec=database.collection('products')
  cartcollec=database.collection('cart')
  usercollec=database.collection('users')
+ orders=database.collection('orders')
+
 
 }
 
 mongo()
 
-
-// async function mongo() {
-//   try {
-//     await client.connect(); // Connect to the database
-//     console.log("Connected to MongoDB");
-//     database = client.db("fruitbasket");
-//     catecollec = database.collection('category');
-//     prodcollec = database.collection('products');
-//     cartcollec = database.collection('cart');
-//     usercollec = database.collection('users');
-
-//     // Start the server only after the database connection is established
-//     app.listen("78", () => {
-//       console.log("Listening on port 78");
-//     });
-//   } catch (error) {
-//     console.error("Failed to connect to MongoDB", error);
-//   }
-// }
-
-mongo();
 const ds=multer.diskStorage({
   destination:(req,file,cb)=>{
       cb(null,"uploads/")
@@ -299,6 +282,27 @@ app.post('/test',verifyToken,(req,res)=>{
     return res.json("hi")
   }
 
+})
+
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log('Connected monggse'))
+.catch((err) => console.error('Could not connect to MongoDB', err));
+
+const carSchema = new mongoose.Schema({  // create schema  means crete the blueprint for variables
+  name: String,
+  lastname: String,
+  mobile: String,
+});
+
+let user=mongoose.model('users',carSchema) //model for user collec and schema placed inside the user collec
+
+app.get('/mong',async(req,res)=>{
+  
+ let y=await new user({name:"sarath",lastname:"ch",mobile:"96662"}).save()
+ res.json(y)
 })
 
 app.listen(78,()=>{console.log("listening on port 78")})

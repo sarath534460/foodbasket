@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body style="height:auto">
     <div class="container-fluid">
         <div style="display:flex;flex-direction: column;">
 
@@ -49,7 +49,11 @@
               </ul>
             </div>
             
-            <button type="button" (click)="gotocart()" style="background-color: #090;border: none;"><div class="style_cart_icon__noiw7" aria-label="cart_button"><img src="https://img.crofarm.com/otipyecom/assets/svg/Cart.svg" alt="Cart svg" width="auto" height="auto"><span class="mb-4" style="color:red;font-weight: 800;" class="style_badge__59RWm">{{cartlength}}</span> </div>
+            <button  type="button" (click)="gotocart()" style="background-color: #090;border: none;">
+              <div class="style_cart_icon__noiw7" aria-label="cart_button">
+                <img src="https://img.crofarm.com/otipyecom/assets/svg/Cart.svg" alt="Cart svg" width="auto" height="auto">
+                <span *ngIf= "cartlength>0" class="mb-4" style="color:black;font-weight: 600;background-color: yellow;padding:5px;border-radius: 20px;font-size: 12px;margin-bottom: 20px;position:absolute;top:2px;height:22px;width:22px" class="style_badge__59RWm">{{cartlength}}</span>
+               </div>
             </button>
            </div>
           </div>
@@ -85,8 +89,6 @@
             <button type="submit"  [disabled]="ref.invalid"   style="background-color: #090;width:300px;color:white;border:none;padding:5px;border-radius: 5px;font-weight: 700;margin-bottom: 30px;">Next</button>
           </form>
 
-
-
           <!-- OTP input -->
         <div *ngIf="phnootp">
           <p style="font-size: 14px;">Enter the OTP sent to your phone</p>
@@ -99,18 +101,70 @@
           <div class="mt-2 ml-5" *ngIf="timer==undefined">
              <button type="button" (click)="resend()" style="background-color:#090;border:none;color:#f0f9f0;margin-bottom: 20px;">resend</button>
           </div>
-
-
-          
         </div>
 
 
         </div>
       </div>
     </div>
+     
+    <router-outlet />
 
+    <div class="container-fluid" style="background-color: #f0f9f0;width:100%;height:auto;margin-left: 20px;margin-right: 20px;">
+     
+        <div style="display:flex;flex-direction:row;margin-left: 50px;gap:300px">
+          <div >
+            <p style="font-size: 14px;font-weight: 600;color:#000;line-height: 20px;margin-top: 15px; ">Get to know us</p><br>
+            <a href="http://localhost:4200" style="font-size: 12px;color:#000;">Home</a><br>
+            <a href="" style="font-size: 12px;color:#000;">About</a><br>
+            <a href="" style="font-size: 12px;color:#000;">Careers</a>
+          </div>
+          <div >
+            <p  style="font-size: 14px;font-weight: 600;color:#000;line-height: 20px;margin-top: 15px;  ">Earn with us</p><br>
+            <a style="font-size: 12px;">Become OTIPY Partner</a><br>
+            <a style="font-size: 12px;">Connect with us as a farmer</a><br>
+            <a style="font-size: 12px;">Become Fresh Cart Partner</a>
+            
+  
+          </div>
+          <div >
+            <p  style="font-size: 14px;font-weight: 600;color:#000;line-height: 20px; margin-top: 15px;">Quick Contact</p><br>
+            <span><img  src="https://img.crofarm.com/otipyecom/assets/svg/Mail.svg" alt="Mail svg"> <a href="https://mail.google.com/mail/?view=cm&fs=1&to=chsarath9@gmail.com" target="_blank" style="font-size: 12px;font-weight: 400;color:#000;line-height: 20px;margin-left: 10px;  ">Send Email via Gmail</a> </span><br><br>
+            <span><img src="https://img.crofarm.com/otipyecom/assets/svg/Whatsapp.svg" alt="Whatsapp svg"><a href="https://wa.me/9666214497" target="_blank" style="font-size: 12px;font-weight: 400;color:#000;line-height: 20px; margin-left: 10px ">9666214497(WhatsApp only)</a>
+            </span>
+  
+          </div>
+          
+        </div><br>
+
+        <div style="display:flex;flex-direction: row;gap:100px;margin-left:50px">
+          <div>
+            <p style="font-size: 12px;font-weight: 400;color:#000;line-height: 20px;">Unit No 507-508, 05th Floor, Tower A, hitech Cyber Park<br>
+              Sector-39, Hitechcity, 122003 Hyderabad</p>
+              
+          </div>
+          <div>
+            <p style="font-size: 12px;font-weight: 600;color:#000;line-height: 20px">
+              Mr. Sarathkumar (SVP Operation)<br>
+              Grievance & Nodal Officer
+            </p>
+          </div>
+
+        </div>
+
+      
+     
+      
+    </div>
+
+    <div style="background-color: #090;height:50px;font-weight: 400; font-size: 12px;line-height: 16px;color: #f0f9f0;display:flex;flex-direction: row;text-align: center;gap:100px">
+      <p class="mt-3 ml-5">2024© Sarath Agriproducts Pvt Ltd. All Copyrights Reserved</p>
+
+      <a class="mt-3" style="color: aliceblue;" href="www.foodbasket.com">Terms & Conditions</a>
+
+    </div>
+      
 
 </body>
 </html>
 
- <router-outlet />

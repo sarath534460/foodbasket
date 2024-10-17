@@ -52,6 +52,7 @@ export class ProductviewComponent {
     console.log(y)
     let d=this.cartservice.addtocart(y).subscribe(k=>{
       this.loaditems()
+      this.cartservice.callcartlength()
       this.cd.detectChanges(); // Manually trigger change detection to update UI
 
     })
@@ -75,7 +76,8 @@ export class ProductviewComponent {
    this.cartservice.desccart(k).subscribe((u:any)=>{
 
     this.loaditems()
-   
+    this.cartservice.callcartlength()
+
     this.cd.detectChanges();
    })
   }

@@ -1,17 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HomeComponent } from './home/home.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
- 
+  homecom:any
   http: HttpClient;
  // carts:any=[]
 
   constructor(http:HttpClient) { 
     this.http=http
+
     //this.http.get("http://localhost:78/getcart").subscribe(u=>{})
   }
   
@@ -37,6 +39,7 @@ export class CartService {
 
   desccart(l:any){
         console.log(l)
+
     return  this.http.delete(`http://localhost:78/desccart/${l.productname}/${l.quantity}/${l.price}`)
 
   }
@@ -44,5 +47,12 @@ export class CartService {
   testapi():Observable<any>{
    return this.http.post(`http://localhost:78/testapi`,{name:3875})
   }
-  
+ 
+  homecomp(y:any){
+     this.homecom=y
+  }
+
+  callcartlength(){
+    this.homecom.cartlength=this.homecom.getcartlengths()
+  }
 }

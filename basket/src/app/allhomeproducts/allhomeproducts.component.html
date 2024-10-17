@@ -7,7 +7,7 @@
         <div *ngFor="let p of y.allproduct ; trackBy: trackById">
           <div class="card">
             <div class="card-image">
-              <img (click)="gotoproductviewpage(p)" style="cursor:pointer;" src='data:{{a}};base64,{{p.productimage}}'><br>
+              <img (click)="gotoproductviewpage(p)" alt="rjg" style="cursor:pointer;" src='data:{{a}};base64,{{p.productimage}}'><br>
             </div>
             <div class="card-content">
               <p (click)="gotoproductviewpage(p)" >{{ p.productname }}</p>

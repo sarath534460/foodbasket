@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit{
   router: Router;
   cd: ChangeDetectorRef;
   cartservice: CartService;
-  cartlength: any;
+  cartlength: number=0
   isPopupOpen = false;
   local:boolean=false
   phno: boolean =false;
@@ -46,21 +46,21 @@ export class HomeComponent implements OnInit{
       this.cd.detectChanges();
 
     },(err)=>{})
-
-    
+    this.getcartlengths()
+    this.cartservice.homecomp(this)
 
   }
 
  
-  //  getcartlengths(){
+   getcartlengths(){
   
-  //   this.cartservice.getcartitems().subscribe(u=>{
-  //     console.log(u)
-  //     this.cartlength=u.length
-  //    // this.cd.detectChanges();
-  //   })
+    this.cartservice.getcartitems().subscribe(u=>{
+      console.log(u)
+      this.cartlength=u.length
+     // this.cd.detectChanges();
+    })
    
-  //  }
+   }
  
   
   getcategoryproducts(y:string){
@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit{
 
   gotocart(){
     this.router.navigate(['/cart'])
-
+   
   }
 
   togglePopup() {

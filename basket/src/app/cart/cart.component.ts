@@ -28,7 +28,8 @@ export class CartComponent implements OnInit {
 
   ngOnInit(){
     this.loaditems()
-   
+    this.cartservice.callcartlength()
+
   }
 
   loaditems(){
@@ -49,6 +50,7 @@ export class CartComponent implements OnInit {
   inccart(t:any){
     this.cartservice.inccart(t).subscribe((i:any)=>{
       this.loaditems()
+
       this.cd.detectChanges(); // Manually trigger change detection to update UI
 
     })
@@ -59,6 +61,7 @@ export class CartComponent implements OnInit {
     this.cartservice.desccart(k).subscribe((u:any)=>{
  
      this.loaditems()
+     this.cartservice.callcartlength()
      this.cd.detectChanges();
     })
   }
